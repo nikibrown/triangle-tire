@@ -76,12 +76,6 @@ get_header();
 
     <div class="expanded row sliderwrap">
 
-	<pre>
-	<//?php 
-		print_r($all_cats['offroad_tires']);
-	?>
-	
-	</pre>
         <div class="large-12">
             <div class="orbit" role="region" aria-label="Favorite Space Pictures" data-orbit data-options="animInFromLeft:fade-in; animInFromRight:fade-in; animOutToLeft:fade-out; animOutToRight:fade-out;">
             	<div id="scoopbutton"><a href="/the-scoop"><img src="<?php echo get_template_directory_uri(); ?>/images/the-Scooop_button.png"></a></div>
@@ -200,23 +194,7 @@ get_header();
 											echo '<li><a href="'. get_term_link( $i ) . '">' . $i->name .'</a></li>';
 										}
 									}
-							
-								
-								// foreach( $items as $i )
-								// {
-
-								// 	//$termname = $i->name;
-
-									
-								// 	if(strpos($i->name,'R') !== false){
-								// 		echo '<li class="'.$radial.'"><a href="'. get_term_link( $i ) . '">' . $i->name .'</a></li>'; 
-								// 	} else {
-								// 		echo '<li><a href="'. get_term_link( $i ) . '">' . $i->name .'</a></li>'; 
-								// 	}
-
-									
-									                       
-								// }
+						
 
 								echo '</ul>';
 							}
