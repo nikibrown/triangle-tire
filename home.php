@@ -75,6 +75,13 @@ get_header();
 ?>
 
     <div class="expanded row sliderwrap">
+
+	<pre>
+	<//?php 
+		print_r($all_cats['offroad_tires']);
+	?>
+	
+	</pre>
         <div class="large-12">
             <div class="orbit" role="region" aria-label="Favorite Space Pictures" data-orbit data-options="animInFromLeft:fade-in; animInFromRight:fade-in; animOutToLeft:fade-out; animOutToRight:fade-out;">
             	<div id="scoopbutton"><a href="/the-scoop"><img src="<?php echo get_template_directory_uri(); ?>/images/the-Scooop_button.png"></a></div>
@@ -129,17 +136,88 @@ get_header();
 						</div>-->
 						<button class="button tirebutton" data-toggle="toggleoffroadbrowse">OFF-THE-ROAD</button>
 						<div class="callout browsebycallout" id="toggleoffroadbrowse" data-toggler data-animate="fade-in fade-out" style="display:none;">
+						<!-- temp styles -->
+						<style>
+							ul.size div {
+								float: left;
+							}
+
+							ul.size div.radial-left {
+								width: 50%;
+							}
+
+							ul.size div.bias-right {
+								width: 30%;
+								margin-left: 70px;
+							}
+
+						</style>
 							<?php
+
+							$radial = "radial";
+							$bias = "bias";
+
 							foreach( $all_cats['offroad_tires'] as $label => $items )
 							{
 								$label = isset( $items[0]->tax_label )
 									? $items[0]->tax_label
 									: $label;
 								echo '<a class="categoryname" href="#">' . ucwords( $label ) . '</a>';
-								echo '<ul class="menu vertical browselist">';
-								foreach( $items as $i )
-								{
-									echo '<li><a href="'. get_term_link( $i ) . '">' . $i->name .'</a></li>';                        }
+								echo '<ul class="menu vertical browselist '.strtolower($label).'">';
+								// check if label is size
+
+									if(strpos($label,'Size') !== false) {
+										// Make div, loop through all the radials tires
+										echo '<div class="radial-left">';
+									
+										foreach( $items as $i ) {
+											// if the term name contains 'r' 
+											if(stripos($i->name,'r') !== false) {
+												echo '<li class="'.$radial.'"><a href="'. get_term_link( $i ) . '">' . $i->name .'</a></li>'; 
+											}
+										}
+
+										echo '</div>';
+
+										echo '<div class="bias-right">';
+
+										// Make div, loop through all the bias tires
+										foreach( $items as $i ) {
+											// if the term name does not contain 'r' 
+											if(stripos($i->name,'r') === false) {
+												echo '<li class="'.$bias.'"><a href="'. get_term_link( $i ) . '">' . $i->name .'</a></li>'; 
+											}
+										}
+
+										echo '</div>';
+
+										// loop through all the bias tires
+									
+									// if not the size label
+									} else {
+
+										foreach( $items as $i ) {
+											echo '<li><a href="'. get_term_link( $i ) . '">' . $i->name .'</a></li>';
+										}
+									}
+							
+								
+								// foreach( $items as $i )
+								// {
+
+								// 	//$termname = $i->name;
+
+									
+								// 	if(strpos($i->name,'R') !== false){
+								// 		echo '<li class="'.$radial.'"><a href="'. get_term_link( $i ) . '">' . $i->name .'</a></li>'; 
+								// 	} else {
+								// 		echo '<li><a href="'. get_term_link( $i ) . '">' . $i->name .'</a></li>'; 
+								// 	}
+
+									
+									                       
+								// }
+
 								echo '</ul>';
 							}
 							?>
