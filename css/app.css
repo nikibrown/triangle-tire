@@ -1,0 +1,48 @@
+.autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
+.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; cursor: pointer; }
+.autocomplete-selected { background: #F0F0F0; }
+.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
+.autocomplete-group { padding: 2px 5px; }
+.autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
+
+.callout-instruction.callout {
+    position: relative;
+    margin: 1rem 0 1rem 0;
+    padding: 1rem;
+    border: 1px solid rgba(10, 10, 10, 0.25);
+    border-radius: 3px;
+    background-color: #eaeaea;
+    color: #0a0a0a;
+}
+.callout-instruction.dark {
+    background-color: #000;
+    border: 1px solid #c0c0c0;
+    color: #c0c0c0;
+}
+.callout-instruction.callout p {
+    font-size: 18px;
+    line-height: 2;
+    font-weight: 400 !important;
+}
+.callout-instruction.callout .bold-span {
+    color: #2d75b5;
+    font-weight: 500;
+}
+.callout-instruction.dark .bold-span {
+    color: #fff;
+}
+
+.callout-instruction.dark .close-button {
+    color: #c0c0c0 !important;
+    right: 10px !important;
+    top: 10px !important;
+    font-size: 1.5rem !important;
+    border: 1px solid #c0c0c0 !important;
+}
+
+.callout-instruction.dark p {
+    font-size: 20px;
+}
+.callout-instruction.dark p:last-of-type {
+    margin-bottom: initial;
+}

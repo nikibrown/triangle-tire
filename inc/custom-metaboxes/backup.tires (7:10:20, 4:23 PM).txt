@@ -1,0 +1,252 @@
+<?php
+/**
+ * tires.php
+ *
+ * @version 1.0
+ * @date 6/10/17 9:03 PM
+ * @package triangle
+ */
+
+require_once( __DIR__ .'/../ImportHelper.php' );
+
+$post_type_options = array(
+	'has_archive' => true,
+	'supports' => array(
+		'title',
+		'editor',
+		'thumbnail',
+		//'custom-fields'
+	)
+);
+
+$all_options = ImportHelper::$all_options;
+
+
+function get_options()
+{
+	$returns = array();
+	foreach( ImportHelper::$all_options as $v )
+	{
+		$name = '_type_data_' . strtolower( trim( preg_replace( '/[^A-Za-z0-9_]+/', '', $v ) ) );
+		$returns[$name] = $v;
+	}
+	return $returns;
+}
+
+
+$passenger_tires = array(
+	'Brand',
+	'Product Code',
+	'Tire Size',
+	'PR',
+	'Load Range',
+	'Speed Rating',
+	'Tread Depth [32Nds]',
+	'Standard Rim',
+	'Alternative Rim',
+	'Section Width [in]',
+	'Overall Diameter [in]',
+	'Max Load [Lbs]',
+	'Pressure [Psi]',
+	'Weight (Lbs)',
+	'UTQG',
+);
+$truckbus_tires = array(
+	'Brand',
+	'Product Code',
+	'Tire Size',
+	'PR',
+	'Ply Rating',
+	'Loading Index',
+	'Speed Rating',
+	'Tread Depth [1/32in]',
+	'Rim Width & Flange',
+	'Section Width [mm]',
+	'Overall Diameter [in]',
+	'Single Max Load [Lbs]',
+	'Dual Max Load [Lbs]',
+	'Max Load [Lbs]',
+	'Pressure [Psi]',
+	'Static Load Radius [in]',
+	'Minimum Dual Spacing [in]',
+	'TT/TL',
+	'Weight (Lbs)',
+	'Load Index',
+	'Tread Depth [32nds]',
+	'Standard Rim',
+	'Alternative Rim',
+	'Section Width [in]',
+
+);
+$offroad_tires_inputs = array(
+	'Brand',
+	'Product Code',
+	'Tire Size',
+	'Load Symbol',
+	'Industry Code',
+	'Overall Diameter [in]',
+	'Overall Width [in]',
+	'Static Load Radius',
+	'Tread Depth [in]',
+	'Minimum Dual Spacing',
+	'Rim Width & Flange',
+	'TT/TL',
+	'Tmph [T1]',
+	'Tmph [T2]',
+	'Tmph [T3]',
+	'Compound Code',
+	'Compound Description',
+	'Application Characteristics',
+);
+
+
+$extra_inputs = array(
+	array(
+		'type' => 'text',
+		'label' => 'Heading',
+		'description' => 'Product Heading',
+		'name' => 'prod_heading'
+	),
+	array(
+		'label' => 'Features & Benefits',
+		'name' => 'description',
+		'type' => 'wysiwyg',
+		'args' => array(
+			'teeny' => true,
+			'media_buttons' => false,
+		)
+	),
+	array(
+		'type' => 'text',
+		'label' => 'Warranty',
+		'name' => 'warranty',
+	),
+	array(
+		'label' => 'Warranty Details',
+		'name' => 'warranty_details',
+		'type' => 'wysiwyg',
+		'args' => array(
+			'teeny' => true,
+			'media_buttons' => false,
+		)
+	),
+	array(
+		'type' => 'yesno',
+		'label' => 'Featured Product?',
+		'name' => 'featured',
+		'default_value' => 'no',
+		'description' => 'Determines if this product is shown on the homepage',
+	),
+);
+
+$notation = array(
+		'type' => 'radios',
+		'label' => 'Notation',
+		'name' => 'notation',
+		'default_value' => '1',
+		'options' => array(
+				'1' => 'primary notation',
+				'2' => 'secondary notation',
+				'3' => 'third notation',
+		)
+);
+$post_type_options['rewrite'] = array( 'slug' => 'passenger-tires' );
+$tires = new Cuztom_Post_Type( array( 'passenger_tires', 'Passenger/Light Truck/SUV Tires' ), $post_type_options );
+$tires->add_taxonomy( 'Categories' );
+$meta_inputs = array();
+
+$meta_inputs[] = $notation;
+/*
+foreach( $notation as $v )
+{
+	$meta_inputs[] = $v;
+}
+*/
+$tire_inputs = array_intersect( array_map( 'strtolower', $all_options ), array_map( 'strtolower', $passenger_tires ) );
+foreach( $tire_inputs as $label )
+{
+	$name = strtolower( trim( preg_replace( '/[^A-Za-z0-9]+/', '', $label ) ) );
+	$meta_inputs[] = array(
+		'label' => $label,
+		'type' => 'text',
+		'name' => $name,
+	);
+}
+$tires->add_meta_box(
+	'type_core',
+	'Tire Primary Data',
+	$extra_inputs
+);
+$tires->add_meta_box(
+	'type_data',
+	'Tire Metadata',
+	array(
+		'bundle',
+		$meta_inputs
+	)
+);
+
+$post_type_options['rewrite'] = array( 'slug' => 'truck-tires' );
+$tires_truckbus = new Cuztom_Post_Type( array( 'truckbus_tires', 'Truck & Bus Tires' ), $post_type_options );
+$tires_truckbus->add_taxonomy( 'Application' );
+$tires_truckbus->add_taxonomy( 'Position' );
+$tires_truckbus->add_taxonomy( 'Feature' );
+
+$meta_inputs = array();
+$meta_inputs[] = $notation;
+$truckbus_inputs = array_intersect( array_map( 'strtolower', $all_options ), array_map( 'strtolower', $truckbus_tires ) );
+foreach( $truckbus_inputs as $label )
+{
+	$name = strtolower( trim( preg_replace( '/[^A-Za-z0-9]+/', '', $label ) ) );
+	$meta_inputs[] = array(
+		'label' => $label,
+		'type' => 'text',
+		'name' => $name,
+	);
+}
+$tires_truckbus->add_meta_box(
+	'type_core',
+	'Tire Primary Data',
+	$extra_inputs
+);
+$tires_truckbus->add_meta_box(
+	'type_data',
+	'Tire Metadata',
+	array(
+		'bundle',
+		$meta_inputs
+	)
+);
+
+$post_type_options['rewrite'] = array( 'slug' => 'offroad-tires' );
+$tires_offroad = new Cuztom_Post_Type( array( 'offroad_tires', 'Off-The-Road Tires' ), $post_type_options );
+$tires_offroad->add_taxonomy( 'Applications' );
+$tires_offroad->add_taxonomy( 'Classification' );
+$tires_offroad->add_taxonomy( 'Equipment' );
+$tires_offroad->add_taxonomy( 'RadialBias' );
+
+$meta_inputs = array();
+$meta_inputs[] = $notation;
+$offroad_inputs = array_intersect( array_map( 'strtolower', $all_options ), array_map( 'strtolower', $offroad_tires_inputs ) );
+foreach( $offroad_inputs as $label )
+{
+	$name = strtolower( trim( preg_replace( '/[^A-Za-z0-9]+/', '', $label ) ) );
+	$meta_inputs[] = array(
+		'label' => $label,
+		'type' => 'text',
+		'name' => $name,
+	);
+}
+$tires_offroad->add_meta_box(
+	'type_core',
+	'Tire Primary Data',
+	$extra_inputs
+);
+$tires_offroad->add_meta_box(
+	'type_data',
+	'Tire Metadata',
+	array(
+		'bundle',
+		$meta_inputs
+	)
+);
