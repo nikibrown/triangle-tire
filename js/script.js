@@ -153,18 +153,4 @@ jQuery(document).ready(function($){
 			window.location.href = $(this).val();
 		}
 	});
-
-	//Search suggest autocomplete
-	$('.js-autocomplete-search').devbridgeAutocomplete({
-		serviceUrl: ajax_object.ajax_url,
-		params: {
-			action: 'search_form'
-		},
-		minChars: 3,
-		deferRequestBy: 10,
-		noCache: true,
-		onSelect: function (suggestion) {
-			window.location.href = suggestion.data;
-		}
-	});
 });
