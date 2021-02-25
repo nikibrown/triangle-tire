@@ -75,6 +75,7 @@ get_header();
 ?>
 
     <div class="expanded row sliderwrap">
+
         <div class="large-12">
             <div class="orbit" role="region" aria-label="Favorite Space Pictures" data-orbit data-options="animInFromLeft:fade-in; animInFromRight:fade-in; animOutToLeft:fade-out; animOutToRight:fade-out;">
             	<div id="scoopbutton"><a href="/the-scoop"><img src="<?php echo get_template_directory_uri(); ?>/images/the-Scooop_button.png"></a></div>
@@ -129,8 +130,7 @@ get_header();
 						</div>-->
 						<button class="button tirebutton" data-toggle="toggleoffroadbrowse">OFF-THE-ROAD</button>
 						<div class="callout browsebycallout" id="toggleoffroadbrowse" data-toggler data-animate="fade-in fade-out" style="display:none;">
-				
-							<?php
+						<?php
 
 							$radial = "radial";
 							$bias = "bias";

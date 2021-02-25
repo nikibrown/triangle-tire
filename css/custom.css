@@ -2023,9 +2023,9 @@ table.rcp-table thead th, table.rcp-table tfoot th, table.rcp-table tfoot td {
 
 table.rcp-table td:first-of-type {
   padding-left: 0.625rem !important;
-}	
+}		
 
-/* styles for homepage off-the-road dropdown */
+/* styles for homepage off-the-road dropdown added by nb 2/25/2021 */
 
 ul.size div {
 	float: left;
