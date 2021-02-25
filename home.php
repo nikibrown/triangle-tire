@@ -75,7 +75,6 @@ get_header();
 ?>
 
     <div class="expanded row sliderwrap">
-
         <div class="large-12">
             <div class="orbit" role="region" aria-label="Favorite Space Pictures" data-orbit data-options="animInFromLeft:fade-in; animInFromRight:fade-in; animOutToLeft:fade-out; animOutToRight:fade-out;">
             	<div id="scoopbutton"><a href="/the-scoop"><img src="<?php echo get_template_directory_uri(); ?>/images/the-Scooop_button.png"></a></div>
@@ -130,22 +129,7 @@ get_header();
 						</div>-->
 						<button class="button tirebutton" data-toggle="toggleoffroadbrowse">OFF-THE-ROAD</button>
 						<div class="callout browsebycallout" id="toggleoffroadbrowse" data-toggler data-animate="fade-in fade-out" style="display:none;">
-						<!-- temp styles -->
-						<style>
-							ul.size div {
-								float: left;
-							}
-
-							ul.size div.radial-left {
-								width: 50%;
-							}
-
-							ul.size div.bias-right {
-								width: 30%;
-								margin-left: 70px;
-							}
-
-						</style>
+				
 							<?php
 
 							$radial = "radial";
@@ -161,9 +145,9 @@ get_header();
 								// check if label is size
 
 									if(strpos($label,'Size') !== false) {
+										
 										// Make div, loop through all the radials tires
 										echo '<div class="radial-left">';
-									
 										foreach( $items as $i ) {
 											// if the term name contains 'r' 
 											if(stripos($i->name,'r') !== false) {
@@ -173,9 +157,8 @@ get_header();
 
 										echo '</div>';
 
-										echo '<div class="bias-right">';
-
 										// Make div, loop through all the bias tires
+										echo '<div class="bias-right">';
 										foreach( $items as $i ) {
 											// if the term name does not contain 'r' 
 											if(stripos($i->name,'r') === false) {
@@ -184,8 +167,6 @@ get_header();
 										}
 
 										echo '</div>';
-
-										// loop through all the bias tires
 									
 									// if not the size label
 									} else {
@@ -194,7 +175,6 @@ get_header();
 											echo '<li><a href="'. get_term_link( $i ) . '">' . $i->name .'</a></li>';
 										}
 									}
-						
 
 								echo '</ul>';
 							}
