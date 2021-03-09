@@ -166,18 +166,40 @@ $viewing_taxomy = false;
 					}
 
 					$all_cats[$type] = array_merge( array_flip( $order ), $all_cats[$type] );
-					foreach( $all_cats[$type] as $lab => $items )
-					{
+					foreach( $all_cats[$type] as $lab => $items ) {
+
 						$lab = isset( $lab_switch[$lab] ) ? $lab_switch[$lab] : $lab;
+
 						$output_options .= '<div class="small-12 medium-3 columns">
 							<label>
-								<select class="js-change-view">
-									<option value="">All '. ucwords( $lab ) .'</option>';
-									foreach( $items as $i )
-									{
+								<select class="js-change-view select-'. ucwords( $lab ) . '">
+									<option class="all-types" value="">All '. ucwords( $lab ) .'</option>';
+									foreach( $items as $i ) {
+
+										// in the sizes array add bias/radial classnames
+										if ( $lab == "Sizes") {
+											$classname = "";
+											// if the term name does not contain 'r' then bias
+											if(stripos($i->name,'r') === false) {
+												$classname = "bias";
+											// if the term name contains 'r' then radial
+											} else {
+												$classname = "radial";
+											}
+										} 
+										
+										// if the term is bias otr or radial otr then add id's
+										$id = "";
+										if ($i->name === "Bias OTR") {
+											$id = "bias";
+										} elseif ($i->name === "Radial OTR") {
+											$id = "radial";
+										}
+								
+										
 										$link = get_term_link( $i );
 										$sel = ( $current_url == rtrim( $link, '/' ) ) ? ' selected="selected"' : '';
-										$output_options .= '<option value="'. $link . '"'.$sel.'>' . $i->name .'</option>';
+										$output_options .= '<option class="'.$classname.'" id="' . $id.'" value="'. $link . '"'.$sel.'>' . $i->name .'</option>';
 									}
 
 						$output_options .= '</select>
@@ -206,6 +228,9 @@ $viewing_taxomy = false;
 	<?php
 	}
 	?>
+
+		
+
 
 	<div class="row">
         <div class="large-12 columns divider"></div>

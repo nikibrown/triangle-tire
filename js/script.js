@@ -3,6 +3,26 @@
  */
 jQuery(document).ready(function($){
 
+	// show/hide logic for tire types / sizes filters on archive pages. See index.php line 179-203
+
+	// get value of selected tireType
+	$tireType = $(".select-Types option:selected").text();
+
+	// hide both bias and radial tires in sizes
+	$(".bias").hide();
+	$(".radial").hide();
+
+	// show appropriate tire sizes + type based on selected type
+	if( $tireType == "Bias OTR") {
+		$(".bias").show();
+	} else if ($tireType == "Radial OTR" ) {
+		$(".radial").show();
+	// if no type is selected show both types
+	} else {
+		$(".radial").show();
+		$(".bias").show();
+	}
+
 	//Process the registration form submission
 	$(document.body).on('submit', 'form.js-submit-dealer', function(event){
 		event.preventDefault();
