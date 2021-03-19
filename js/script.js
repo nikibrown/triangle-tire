@@ -8,16 +8,18 @@ jQuery(document).ready(function($){
 	// get value of selected tireType
 	$tireType = $(".select-Types option:selected").text();
 
-	// hide both bias and radial tires in sizes
-	$(".bias").hide();
-	$(".radial").hide();
-
 	// Create headings move radial to the top
 
 	let $biasHeading = "<option class='bias-heading bias'>Bias --------------------------</</option>";
 	let $radialHeading = "<option class='radial-heading radial'>Radial ------------------------</option>";
 
 	$(".select-Sizes").prepend($biasHeading, $radialHeading);
+
+	// hide both bias and radial tires in sizes
+	$(".bias").hide();
+	$(".bias.bias-heading").hide();
+	$(".radial").hide();
+	$(".radial.radial-heading").hide();
 
 	// move radial options to the top
 	$(".radial").prependTo(".select-Sizes");
@@ -28,12 +30,16 @@ jQuery(document).ready(function($){
 	// show appropriate tire sizes + type based on selected type
 	if( $tireType == "Bias OTR") {
 		$(".bias").show();
+		$(".bias.bias-heading").show();
 	} else if ($tireType == "Radial OTR" ) {
 		$(".radial").show();
+		$(".radial.radial-heading").show();
 	// if no type is selected show both types
 	} else {
 		$(".radial").show();
 		$(".bias").show();
+		$(".bias.bias-heading").show();
+		$(".radial.radial-heading").show();
 	}
 
 	//Process the registration form submission
