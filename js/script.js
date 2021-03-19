@@ -12,6 +12,19 @@ jQuery(document).ready(function($){
 	$(".bias").hide();
 	$(".radial").hide();
 
+	// Create headings move radial to the top
+
+	let $biasHeading = "<option class='bias-heading bias'>Bias --------------------------</</option>";
+	let $radialHeading = "<option class='radial-heading radial'>Radial ------------------------</option>";
+
+	$(".select-Sizes").prepend($biasHeading, $radialHeading);
+
+	// move radial options to the top
+	$(".radial").prependTo(".select-Sizes");
+
+	// move all sizes to the top
+	$(".select-Sizes .all-types").prependTo(".select-Sizes");
+
 	// show appropriate tire sizes + type based on selected type
 	if( $tireType == "Bias OTR") {
 		$(".bias").show();
